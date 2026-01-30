@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,18 +16,29 @@ import java.util.UUID;
 @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID userId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String userId;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String role;
+
     @Column(nullable = false)
     private String password_hash;
-    @Column(nullable = false)
+
+    @Column(nullable = false,unique = true)
     private String email;
+
     @Column(nullable = false)
     private String dateOfBirth;
+
+    @Column(nullable = false)
+    private int age;
+
     private String created_at;
-    private String updated_at;
+
+    @ElementCollection
+    private List<String> updated_at;
 }
