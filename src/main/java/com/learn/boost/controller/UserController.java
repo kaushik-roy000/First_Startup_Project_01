@@ -2,6 +2,7 @@ package com.learn.boost.controller;
 
 import com.learn.boost.dto.UserRequestDto;
 import com.learn.boost.dto.UserResponseDto;
+import com.learn.boost.model.User;
 import com.learn.boost.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,13 @@ public class UserController {
         }else {
             return ResponseEntity.badRequest().body("notcreated user something wrong");
         }
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateUser(
+            @PathVariable String id,
+            @RequestBody UserRequestDto dto
+    ){
+        User user= userService.updatedUser(id,dto);
+        return ResponseEntity.ok(user);
     }
 }
