@@ -1,5 +1,6 @@
 package com.learn.boost.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learn.boost.enums.UserUpdateField;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class UserUpdateHistory {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",nullable = false)
+    @JsonIgnore
     private User user;
 
     private LocalDateTime updated_at;

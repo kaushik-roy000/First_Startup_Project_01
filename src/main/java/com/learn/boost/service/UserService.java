@@ -29,7 +29,8 @@ public class UserService {
     private  UserRepository userRepository;
     @Autowired
     private  UserUPdateHistory userUPdateHistoryRepository;
-
+    @Autowired
+    private UserUPdateHistory userUPdateHistory;
 
 
     public boolean createUser(UserRequestDto userRequestDto){
@@ -98,5 +99,14 @@ public class UserService {
             //historyList.add(createHistory(user,UserUpdateField.PASSWORD,password));
         }
         return userRepository.save(user);
+    }
+
+    public List<UserUpdateHistory> getAllHistory() {
+        List<UserUpdateHistory> allhistory=userUPdateHistoryRepository.findAll();
+        return allhistory;
+    }
+    public List<UserUpdateHistory> getHistoryById(String id){
+         return userUPdateHistory.findAllByUserId(id);
+
     }
 }

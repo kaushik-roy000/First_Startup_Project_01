@@ -3,6 +3,7 @@ package com.learn.boost.controller;
 import com.learn.boost.dto.UserRequestDto;
 import com.learn.boost.dto.UserResponseDto;
 import com.learn.boost.model.User;
+import com.learn.boost.model.UserUpdateHistory;
 import com.learn.boost.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -37,5 +38,15 @@ public class UserController {
     ){
         User user= userService.updatedUser(id,dto);
         return ResponseEntity.ok(user);
+    }
+    @GetMapping("/getallhistory")
+    public ResponseEntity<List<UserUpdateHistory>> getAllHistory(){
+        List<UserUpdateHistory> userAllHistory=userService.getAllHistory();
+        return ResponseEntity.ok(userAllHistory);
+    }
+    @GetMapping("/getHistory/{id}")
+    public ResponseEntity<List<UserUpdateHistory>> getHistoryById(@PathVariable String id){
+        List<UserUpdateHistory> oneUserHistory=userService.getHistoryById(id);
+        return ResponseEntity.ok(oneUserHistory);
     }
 }
