@@ -39,6 +39,20 @@ public class User {
 
     private String created_at;
 
-    @ElementCollection
-    private List<String> updated_at;
+//    @ElementCollection
+//    private List<String> updated_at;
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Notes> notes;
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<UserUpdateHistory> updateHistory;
 }
