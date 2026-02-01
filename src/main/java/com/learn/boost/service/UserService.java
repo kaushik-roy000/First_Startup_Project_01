@@ -10,6 +10,7 @@ import com.learn.boost.repository.UserRepository;
 import com.learn.boost.repository.UserUPdateHistory;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -24,25 +25,13 @@ import java.util.UUID;
 @Service
 public class UserService {
 
-    public UserService() {
-    }
-
+    @Autowired
     private  UserRepository userRepository;
-
+    @Autowired
     private  UserUPdateHistory userUPdateHistoryRepository;
+    @Autowired
+    private UserUPdateHistory userUPdateHistory;
 
-    public UserService(UserUPdateHistory userUPdateHistoryRepository){
-        this.userUPdateHistoryRepository=userUPdateHistoryRepository;
-    }
-
-    public UserService(UserRepository userRepository){
-        this.userRepository=userRepository;
-    }
-
-    public UserService(UserUPdateHistory userUPdateHistoryRepository, UserRepository userRepository) {
-        this.userUPdateHistoryRepository = userUPdateHistoryRepository;
-        this.userRepository = userRepository;
-    }
 
     public boolean createUser(UserRequestDto userRequestDto){
         User user=UserMapper.dtoToUser(userRequestDto);
@@ -110,5 +99,14 @@ public class UserService {
             //historyList.add(createHistory(user,UserUpdateField.PASSWORD,password));
         }
         return userRepository.save(user);
+    }
+
+    public List<UserUpdateHistory> getAllHistory() {
+        List<UserUpdateHistory> allhistory=userUPdateHistoryRepository.findAll();
+        return allhistory;
+    }
+    public List<UserUpdateHistory> getHistoryById(String id){
+         return userUPdateHistory.findAllByUserId(id);
+
     }
 }
