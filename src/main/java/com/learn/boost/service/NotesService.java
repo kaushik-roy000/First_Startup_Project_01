@@ -1,11 +1,17 @@
 package com.learn.boost.service;
 
+import com.learn.boost.dto.NoteResponseDto;
+import com.learn.boost.mapper.NoteMapper;
 import com.learn.boost.model.Notes;
 import com.learn.boost.model.User;
 import com.learn.boost.repository.NodeRepository;
 import com.learn.boost.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.PathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -73,4 +80,18 @@ public class NotesService {
     }
 
 
+    public String getNotesByUserId(String userid) {
+        return null;
+    }
+
+    public List<NoteResponseDto> getNotesDtoByUserId(String userid) {
+        List<Notes> userNotes=noteRepository.findByUser_UserId(userid).stream().toList();
+         return userNotes.stream().map(NoteMapper::noteToDto).toList();
+    }
+    public Resource sendTextFile(String noteId){
+        Notes note=noteRepository.findById(noteId).orElseThrow(()->new RuntimeException("notes not found"));
+        String path=note.getNotes_path();
+        Resource resource = new PathResource(path);
+        return resource;
+    }
 }
