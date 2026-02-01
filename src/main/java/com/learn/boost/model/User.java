@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,7 +37,7 @@ public class User {
 
     @Column(nullable = false)
     private int age;
-
+    @CreationTimestamp
     private String created_at;
 
 //    @ElementCollection
