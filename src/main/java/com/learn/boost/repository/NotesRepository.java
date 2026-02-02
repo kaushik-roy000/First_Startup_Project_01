@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface NodeRepository extends JpaRepository<Notes,String> {
+public interface NotesRepository extends JpaRepository<Notes,String> {
     List<Notes> findByUser_UserId(String userId);
 }

@@ -4,19 +4,16 @@ import com.learn.boost.dto.NoteResponseDto;
 import com.learn.boost.mapper.NoteMapper;
 import com.learn.boost.model.Notes;
 import com.learn.boost.model.User;
-import com.learn.boost.repository.NodeRepository;
+import com.learn.boost.repository.NotesRepository;
 import com.learn.boost.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -29,10 +26,10 @@ import java.util.UUID;
 @Service
 public class NotesService {
     private UserRepository userRepository;
-    private NodeRepository noteRepository;
+    private NotesRepository notesRepository;
 
-    public NotesService(NodeRepository noteRepository,UserRepository userRepository) {
-        this.noteRepository = noteRepository;
+    public NotesService(NotesRepository notesRepository, UserRepository userRepository) {
+        this.notesRepository = notesRepository;
         this.userRepository=userRepository;
     }
     @Value("${file.text}")
@@ -72,7 +69,7 @@ public class NotesService {
         }
         notes.setNotes_path(path.toString());
         notes.setUser(user);
-        noteRepository.save(notes);
+        notesRepository.save(notes);
 
 
         return "notes upload successfully";
@@ -85,11 +82,11 @@ public class NotesService {
     }
 
     public List<NoteResponseDto> getNotesDtoByUserId(String userid) {
-        List<Notes> userNotes=noteRepository.findByUser_UserId(userid).stream().toList();
+        List<Notes> userNotes= notesRepository.findByUser_UserId(userid).stream().toList();
          return userNotes.stream().map(NoteMapper::noteToDto).toList();
     }
     public Resource sendTextFile(String noteId){
-        Notes note=noteRepository.findById(noteId).orElseThrow(()->new RuntimeException("notes not found"));
+        Notes note= notesRepository.findById(noteId).orElseThrow(()->new RuntimeException("notes not found"));
         String path=note.getNotes_path();
         Resource resource = new PathResource(path);
         return resource;
