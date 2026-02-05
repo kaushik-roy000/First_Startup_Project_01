@@ -1,40 +1,24 @@
 package com.learn.boost.controller;
-
-import com.learn.boost.aiService.QuestionFileService;
+import com.learn.boost.service.questionsServies.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
+import java.io.IOException;
 
 @RestController
+@RequestMapping("/ask")
 public class QuestionController {
 
     @Autowired
-    private QuestionFileService questionFileService;
-
-
-    @GetMapping("/generate_mcq/{userId}/{noteId}")
-    public ResponseEntity<String> generateMcq(
+    private QuestionService questionService;
+    //ask a question and get the answer
+    @GetMapping("/{userId}")
+    public ResponseEntity<UrlResource> askQuestion(
             @PathVariable String userId,
-            @PathVariable String noteId
-    ){
-        //questionFileService.generateQuestion(userId,noteId);
-        questionFileService.saveMcq(userId,noteId);
+            @RequestParam String question
+    ) throws IOException {
+        return ResponseEntity.ok(questionService.saveQuestionAndAnswer(userId,question));
 
-
-        return ResponseEntity.ok("Generated Successfully");
-    }
-
-    @GetMapping("/mcq/{userid}/{noteId}")//get a  note all mcq
-    public ResponseEntity<Resource> getAllMcqByuserId(
-            @PathVariable String userid,
-            @PathVariable String noteId
-    ){
-        Resource resource = questionFileService.getAMcqByNoteIdbyuserId(userid, noteId);
-        return ResponseEntity.ok(  resource);
     }
 }

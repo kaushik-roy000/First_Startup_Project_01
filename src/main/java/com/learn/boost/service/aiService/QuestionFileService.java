@@ -1,7 +1,6 @@
-package com.learn.boost.aiService;
+package com.learn.boost.service.aiService;
 
 
-import com.learn.boost.mapper.MCQResponse;
 import com.learn.boost.model.Notes;
 import com.learn.boost.model.QuestionFile;
 import com.learn.boost.repository.NotesRepository;
@@ -11,18 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

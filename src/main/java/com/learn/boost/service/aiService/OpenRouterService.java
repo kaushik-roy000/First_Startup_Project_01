@@ -1,4 +1,4 @@
-package com.learn.boost.aiService;
+package com.learn.boost.service.aiService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learn.boost.helper.OpenRouterResponse;
 import com.learn.boost.mapper.MCQResponse;

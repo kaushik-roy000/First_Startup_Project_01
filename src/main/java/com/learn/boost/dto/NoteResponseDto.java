@@ -14,5 +14,5 @@ public class NoteResponseDto {
     private String title;
     private String rating;
     private String id;
-    private Path path;
+
 }

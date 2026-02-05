@@ -2,7 +2,7 @@ package com.learn.boost.controller;
 
 
 
-import com.learn.boost.aiService.OpenRouterService;
+import com.learn.boost.service.aiService.OpenRouterService;
 import com.learn.boost.mapper.MCQResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

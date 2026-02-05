@@ -4,7 +4,7 @@ import com.learn.boost.dto.UserRequestDto;
 import com.learn.boost.dto.UserResponseDto;
 import com.learn.boost.model.User;
 import com.learn.boost.model.UserUpdateHistory;
-import com.learn.boost.service.UserService;
+import com.learn.boost.service.userServices.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ public class UserController {
        // return userService.getAllUsers();
     }
     @PostMapping("/create_user")
-    public ResponseEntity<?> createUser(@Valid @RequestBody UserRequestDto userRequestDto){
+    public ResponseEntity<?> createUsers(@Valid @RequestBody UserRequestDto userRequestDto){
         if( userService.createUser(userRequestDto)){
             return ResponseEntity.ok("user created successfull");
         }else {

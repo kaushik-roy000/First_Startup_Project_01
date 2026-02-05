@@ -1,4 +1,4 @@
-package com.learn.boost.service;
+package com.learn.boost.service.userServices;
 
 import com.learn.boost.dto.UserRequestDto;
 import com.learn.boost.dto.UserResponseDto;
@@ -8,19 +8,14 @@ import com.learn.boost.model.User;
 import com.learn.boost.model.UserUpdateHistory;
 import com.learn.boost.repository.UserRepository;
 import com.learn.boost.repository.UserUPdateHistory;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class UserService {
